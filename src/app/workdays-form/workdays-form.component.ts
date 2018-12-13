@@ -17,7 +17,7 @@ export class WorkdaysFormComponent {
   }
   workDaySum:number=0;
   fromMinDaySum:number=0;
-  daysLeft:number=0;
+  daysLeft:number=180;
   workDaysForm = this.fb.group({
     minDate: moment(new Date().valueOf()),
     dayRange: 365,

@@ -1,34 +1,44 @@
 <form fxLayout="column" fxLayoutGap="20px" [formGroup]="workDaysForm" class="work-days-form" novalidate>   
-  <mat-card fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
-    <mat-card-subtitle>Parametry wejściowe:</mat-card-subtitle>
-    <mat-form-field fxFlex="30%">
-      <input matInput [matDatepicker]="picker0" formControlName="minDate" placeholder="Data zatrudnienia (DD/MM/YYYY)" (ngModelChange)="calculateWorkDaySum()">
-      <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
-      <mat-datepicker #picker0></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field fxFlex="30%">
-      <input formControlName="dayRange" type="number" required matInput placeholder="Zakres dni wstecz" (ngModelChange)="calculateWorkDaySum()">
-    </mat-form-field>
-    <mat-form-field fxFlex="30%">
-      <input formControlName="maxWorkDays" type="number" required matInput placeholder="maksymalna ilość dni do wykorzystania" (ngModelChange)="calculateWorkDaySum()">
-    </mat-form-field>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+  <mat-card fxFlex="100%">
+    <mat-card-subtitle><b>Parametry wejściowe:</b></mat-card-subtitle>
+      <mat-card-content fxLayout="row" fxLayoutGap="5px">
+      <mat-form-field fxFlex="33%">
+        <input matInput [matDatepicker]="picker0" formControlName="minDate" placeholder="Data zatrudnienia (DD/MM/YYYY)" (ngModelChange)="calculateWorkDaySum()">
+        <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+        <mat-datepicker #picker0></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field fxFlex="33%">
+        <input formControlName="dayRange" type="number" required matInput placeholder="Zakres dni wstecz" (ngModelChange)="calculateWorkDaySum()">
+      </mat-form-field>
+      <mat-form-field fxFlex="33%">
+        <input formControlName="maxWorkDays" type="number" required matInput placeholder="maksymalna ilość dni do wykorzystania" (ngModelChange)="calculateWorkDaySum()">
+      </mat-form-field>
+    </mat-card-content>
   </mat-card>
+  </div>
   <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
     <mat-card class="scrollable-list" fxFlex="60%">
-      <mat-card-subtitle>Okresy przepracowane:</mat-card-subtitle>
+      <mat-card-subtitle><b>Okresy przepracowane:</b></mat-card-subtitle>
       <mat-card-content>
-        <div formArrayName="workDates" *ngFor="let workDate of getWorkDates().controls; let i = index; last as isLast">
+        <div formArrayName="workDates" *ngFor="let workDate of getWorkDates().controls as workDates; let i = index; last as isLast">
+          <span *ngIf="workDates.length<2" style="padding-left:30px">Nie wprowadzono okresu</span>
+          <!-- <mat-divider *ngIf="isLast" style="margin:30px 0px 30px 0px" [inset]="true"></mat-divider> -->
+          <mat-card-subtitle style="margin-top:10px" *ngIf="isLast" ><b>Wprowadź nowy okres zatrudnienia:</b></mat-card-subtitle>
           <div mat-grid-list cols="3" [formGroupName]="i">
             <div fxLayout="row" fxLayoutGap="5px">
-              <div fxFlex="50%">
+            <div fxFlex="8%">
+              <button color="primary" *ngIf="!isLast" mat-icon-button><mat-icon>delete</mat-icon></button>
+            </div>
+              <div fxFlex="46%">
                 <mat-form-field class="full-width">
-                  <input matInput [matDatepicker]="picker1" formControlName="dateFrom" (ngModelChange)="((isLast) ? lastDateEntered() : null) || calculateWorkDaySum()" placeholder="Data od (DD/MM/YYYY)">
+                  <input matInput [matDatepicker]="picker1" formControlName="dateFrom" (ngModelChange)="calculateWorkDaySum()" placeholder="Data od (DD/MM/YYYY)">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
               </div>
               
-              <div fxFlex="50%">
+              <div fxFlex="46%">
                 <mat-form-field class="full-width">
                   <input matInput [matDatepicker]="picker2" formControlName="dateTo" (ngModelChange)="((isLast) ? lastDateEntered() : null) || calculateWorkDaySum()" placeholder="Data do (DD/MM/YYYY)">
                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -41,7 +51,7 @@
       </mat-card-content>
     </mat-card>
     <mat-card class="scrollable-list" fxFlex="40%">
-      <mat-card-subtitle>Suma w danym okresie:</mat-card-subtitle>
+      <mat-card-subtitle><b>Suma w danym okresie:</b></mat-card-subtitle>
       <mat-card-content>
         <div fxLayout="row" fxLayoutGap="5px" formArrayName="workDates" *ngFor="let workDate of getWorkDates().controls; let i = index; last as isLast">
             <mat-form-field fxFlex="50%" *ngIf="!isLast">
@@ -52,26 +62,24 @@
             </mat-form-field>
           </div>
       </mat-card-content>
-    </mat-card>
-  </div>
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
-    <div fxFlex="30%"></div>
-    <mat-card fxFlex="30%">
-      <mat-card-subtitle>Dni pozostałe:</mat-card-subtitle>
-      <mat-card-content fxLayout="row" fxLayoutGap="5px" >
-        <mat-form-field fxFlex="100%">
-          <input disabled="disabled" [value]="workDaysForm.valid ? daysLeft : null" matInput>
-        </mat-form-field>
-      </mat-card-content>
-    </mat-card>
-    <mat-card fxFlex="40%">
-      <mat-card-subtitle>Suma okresów:</mat-card-subtitle>
+      <mat-card-subtitle><b>Suma wszystkich okresów:</b></mat-card-subtitle>
       <mat-card-content fxLayout="row" fxLayoutGap="5px" >
         <mat-form-field fxFlex="50%">
           <input disabled="disabled" [value]="workDaysForm.valid ? workDaySum : null" matInput placeholder="Suma dni wprowadzonych">
         </mat-form-field>
         <mat-form-field fxFlex="50%">
           <input disabled="disabled" [value]="workDaysForm.valid ? fromMinDaySum : null" matInput placeholder="Suma dni w zakresie">
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+    <div fxFlex="60%"></div>
+    <mat-card fxFlex="40%">
+      <mat-card-subtitle><b>Dni pozostałe:</b></mat-card-subtitle>
+      <mat-card-content fxLayout="row" fxLayoutGap="5px">
+        <mat-form-field fxFlex="100%">
+          <input disabled="disabled" [value]="workDaysForm.valid ? daysLeft : null" matInput>
         </mat-form-field>
       </mat-card-content>
     </mat-card>
