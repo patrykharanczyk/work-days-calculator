@@ -1,4 +1,4 @@
-<form fxLayout="column" fxLayoutGap="20px" [formGroup]="workDaysForm" class="work-days-form" novalidate (ngSubmit)="onSubmit()">   
+<form fxLayout="column" fxLayoutGap="20px" [formGroup]="workDaysForm" class="work-days-form" novalidate>   
   <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
     <mat-card fxFlex="100%">
       <mat-card-subtitle>Parametry wejściowe:</mat-card-subtitle>
@@ -13,7 +13,7 @@
     <mat-card class="scrollable-list" fxFlex="60%">
       <mat-card-subtitle>Okresy przepracowane:</mat-card-subtitle>
       <mat-card-content>
-        <div formArrayName="workDates" *ngFor="let workDate of workDaysForm.get('workDates').controls; let i = index; last as isLast">
+        <div formArrayName="workDates" *ngFor="let workDate of getWorkDates().controls; let i = index; last as isLast">
           <div mat-grid-list cols="3" [formGroupName]="i">
             <div fxLayout="row" fxLayoutGap="5px">
               <div fxFlex="50%">
@@ -39,7 +39,7 @@
     <mat-card class="scrollable-list" fxFlex="40%">
       <mat-card-subtitle>Suma w danym okresie:</mat-card-subtitle>
       <mat-card-content>
-        <div fxLayout="row" fxLayoutGap="5px" formArrayName="workDates" *ngFor="let workDate of workDaysForm.get('workDates').controls; let i = index; last as isLast">
+        <div fxLayout="row" fxLayoutGap="5px" formArrayName="workDates" *ngFor="let workDate of getWorkDates().controls; let i = index; last as isLast">
             <mat-form-field fxFlex="50%" *ngIf="!isLast">
               <input disabled="disabled" [value]="workDaysForm.valid ? getPeriod(workDaysForm.controls.workDates.controls[i].controls.dateFrom.value, workDaysForm.controls.workDates.controls[i].controls.dateTo.value) : null" matInput placeholder="Suma dni wprowadzonych">
             </mat-form-field>

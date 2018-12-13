@@ -15,7 +15,6 @@ export class WorkdaysFormComponent {
       dateTo: moment(new Date())
     });
   }
-
   workDaysForm = this.fb.group({
     minDate: moment(new Date().valueOf()-(365*24*60*60*1000)),
     maxWorkDays: 180,
@@ -24,6 +23,10 @@ export class WorkdaysFormComponent {
 
   constructor(private fb: FormBuilder) { }
 
+  getWorkDates = ():FormArray=>{ 
+    return <FormArray>this.workDaysForm.get('workDates'); 
+  }
+  
   getWorkDaySum = ():number =>{
     let workDaySum:number=0;
     let workPeriods = this.workDaysForm.get('workDates').value;
