@@ -18,7 +18,7 @@
             <div fxLayout="row" fxLayoutGap="5px">
               <div fxFlex="50%">
                 <mat-form-field class="full-width">
-                  <input matInput [matDatepicker]="picker1" formControlName="dateFrom" (ngModelChange)="calculateWorkDaySum() || (isLast) ? lastDateEntered() : null" placeholder="Data od (DD/MM/YYYY)">
+                  <input matInput [matDatepicker]="picker1" formControlName="dateFrom" (ngModelChange)="((isLast) ? lastDateEntered() : null) || calculateWorkDaySum()" placeholder="Data od (DD/MM/YYYY)">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -26,7 +26,7 @@
               
               <div fxFlex="50%">
                 <mat-form-field class="full-width">
-                  <input matInput [matDatepicker]="picker2" formControlName="dateTo" (ngModelChange)="calculateWorkDaySum() || (isLast) ? lastDateEntered() : null" placeholder="Data do (DD/MM/YYYY)">
+                  <input matInput [matDatepicker]="picker2" formControlName="dateTo" (ngModelChange)="((isLast) ? lastDateEntered() : null) || calculateWorkDaySum()" placeholder="Data do (DD/MM/YYYY)">
                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>

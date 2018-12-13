@@ -35,7 +35,7 @@ export class WorkdaysFormComponent {
     let fromMinDaySum:number=0
 
     for (let period of workPeriods) {
-      // if(workPeriods.indexOf(period)==workPeriods.length-1) continue;
+      if(workPeriods.indexOf(period)==workPeriods.length-1) continue;
       workDaySum += this.getPeriod(period.dateFrom, period.dateTo);
       fromMinDaySum += this.getPeriodInRange(period.dateFrom, period.dateTo);
       
