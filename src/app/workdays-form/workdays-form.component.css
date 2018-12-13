@@ -8,7 +8,7 @@
 
 
 @media all and (min-width:1024px) { 
-  .work-days-form  { min-width: 800px; } 
+  .work-days-form  { min-width: 900px; } 
 }
 .scrollable-list{
   max-height: 500px;
