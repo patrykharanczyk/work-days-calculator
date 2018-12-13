@@ -1,6 +1,6 @@
 {
-  "name": "my-dream-app",
-  "version": "0.0.0",
+  "name": "work-days-calculator",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
