@@ -3,7 +3,7 @@
     <mat-card fxFlex="100%">
       <mat-card-subtitle>Parametry wejściowe:</mat-card-subtitle>
       <mat-form-field class="full-width">
-        <input matInput [matDatepicker]="picker0" formControlName="minDate" placeholder="Pocztek okresu obliczenia (DD/MM/YYYY)">
+        <input matInput [matDatepicker]="picker0" formControlName="minDate" placeholder="Pocztek okresu obliczenia (DD/MM/YYYY)" (ngModelChange)="lastDateEntered()">
         <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
         <mat-datepicker #picker0></mat-datepicker>
       </mat-form-field>
