@@ -38,7 +38,6 @@ export class WorkdaysFormComponent {
       // if(workPeriods.indexOf(period)==workPeriods.length-1) continue;
       workDaySum += this.getPeriod(period.dateFrom, period.dateTo);
       fromMinDaySum += this.getPeriodInRange(period.dateFrom, period.dateTo);
-      alert(workDaySum + ' ' +fromMinDaySum);
       
     }
     this.workDaySum=workDaySum;
