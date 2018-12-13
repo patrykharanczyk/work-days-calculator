@@ -1,0 +1,16 @@
+.full-width {
+  width: 100%;
+}
+
+/* .work-days-form {
+  min-width: 800px;
+} */
+
+
+@media all and (min-width:1024px) { 
+  .work-days-form  { min-width: 800px; } 
+}
+.scrollable-list{
+  max-height: 500px;
+  overflow-y:auto;
+}
