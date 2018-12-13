@@ -17,8 +17,10 @@ export class WorkdaysFormComponent {
   }
   workDaySum:number=0;
   fromMinDaySum:number=0;
+  daysLeft:number=0;
   workDaysForm = this.fb.group({
-    minDate: moment(new Date().valueOf()-(365*24*60*60*1000)),
+    minDate: moment(new Date().valueOf()),
+    dayRange: 365,
     maxWorkDays: 180,
     workDates: this.fb.array([this.createItem()])
   });
@@ -42,6 +44,7 @@ export class WorkdaysFormComponent {
     }
     this.workDaySum=workDaySum;
     this.fromMinDaySum=fromMinDaySum;
+    this.daysLeft=this.workDaysForm.get('maxWorkDays').value-fromMinDaySum;
   }
 
   lastDateEntered(event) {
@@ -68,7 +71,7 @@ export class WorkdaysFormComponent {
   }
   
   getPeriodInRange = (dateFrom:Date, dateTo:Date):number =>{
-    let minDate = this.workDaysForm.get('minDate').value;
+    let minDate = this.getMinDate();
     let fromMinDaySum:number=0;
     if (this.isInRange(dateTo, minDate)) {
       dateFrom = this.trimToMinDate(dateFrom, minDate);
@@ -78,7 +81,7 @@ export class WorkdaysFormComponent {
   }
   
   getPeriodFromMin = (dateFrom: Date, dateTo:Date):number =>{
-    let minDate = this.workDaysForm.get('minDate').value;
+    let minDate = this.getMinDate();
     if (this.isInRange(dateTo, minDate)) {
       dateFrom = this.trimToMinDate(dateFrom, minDate);
       return this.getPeriod(dateFrom, dateTo);
@@ -86,7 +89,9 @@ export class WorkdaysFormComponent {
       return 0;
     }
   }
-
+  getMinDate = ():Date =>{
+    return new Date(this.workDaysForm.get('minDate').value-(this.workDaysForm.get('dayRange').value*24*60*60*1000));
+  }
   trimToMinDate = (dateFrom: Date, minDate: Date): Date => {
     if (dateFrom.valueOf() < minDate.valueOf()) {
       dateFrom = minDate;
