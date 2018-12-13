@@ -15,6 +15,8 @@ export class WorkdaysFormComponent {
       dateTo: moment(new Date())
     });
   }
+  workDaySum:number=0;
+  fromMinDaySum:number=0;
   workDaysForm = this.fb.group({
     minDate: moment(new Date().valueOf()-(365*24*60*60*1000)),
     maxWorkDays: 180,
@@ -26,32 +28,21 @@ export class WorkdaysFormComponent {
   getWorkDates = ():FormArray=>{ 
     return <FormArray>this.workDaysForm.get('workDates'); 
   }
-  
-  getWorkDaySum = ():number =>{
+
+  calculateWorkDaySum = () => {
     let workDaySum:number=0;
     let workPeriods = this.workDaysForm.get('workDates').value;
-    let minDate = this.workDaysForm.get('minDate').value;
+    let fromMinDaySum:number=0
 
     for (let period of workPeriods) {
-      if(workPeriods.indexOf(period)==workPeriods.length-1) continue;
-      workDaySum += this.getPeriod(period.dateFrom, period.dateTo)
+      // if(workPeriods.indexOf(period)==workPeriods.length-1) continue;
+      workDaySum += this.getPeriod(period.dateFrom, period.dateTo);
+      fromMinDaySum += this.getPeriodInRange(period.dateFrom, period.dateTo);
+      alert(workDaySum + ' ' +fromMinDaySum);
+      
     }
-    return workDaySum;
-  }
-
-  getWorkDaySumFromMin = ():number =>{
-    let fromMinDaySum:number=0;
-    let workPeriods = this.workDaysForm.get('workDates').value;
-    let minDate = this.workDaysForm.get('minDate').value;
-
-    for (let period of workPeriods) {
-      if(workPeriods.indexOf(period)==workPeriods.length-1) continue;
-      if (this.isInRange(period.dateTo, minDate)) {
-        period.dateFrom = this.trimToMinDate(period.dateFrom, minDate);
-        fromMinDaySum += this.getPeriod(period.dateFrom, period.dateTo);
-      }
-    }
-    return fromMinDaySum;
+    this.workDaySum=workDaySum;
+    this.fromMinDaySum=fromMinDaySum;
   }
 
   lastDateEntered(event) {
@@ -76,6 +67,17 @@ export class WorkdaysFormComponent {
       return 0;
     }
   }
+  
+  getPeriodInRange = (dateFrom:Date, dateTo:Date):number =>{
+    let minDate = this.workDaysForm.get('minDate').value;
+    let fromMinDaySum:number=0;
+    if (this.isInRange(dateTo, minDate)) {
+      dateFrom = this.trimToMinDate(dateFrom, minDate);
+      fromMinDaySum += this.getPeriod(dateFrom, dateTo);
+    }
+    return fromMinDaySum;
+  }
+  
   getPeriodFromMin = (dateFrom: Date, dateTo:Date):number =>{
     let minDate = this.workDaysForm.get('minDate').value;
     if (this.isInRange(dateTo, minDate)) {

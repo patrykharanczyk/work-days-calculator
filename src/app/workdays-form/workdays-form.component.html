@@ -3,7 +3,7 @@
     <mat-card fxFlex="100%">
       <mat-card-subtitle>Parametry wejściowe:</mat-card-subtitle>
       <mat-form-field class="full-width">
-        <input matInput [matDatepicker]="picker0" formControlName="minDate" placeholder="Pocztek okresu obliczenia (DD/MM/YYYY)" (ngModelChange)="lastDateEntered()">
+        <input matInput [matDatepicker]="picker0" formControlName="minDate" placeholder="Pocztek okresu obliczenia (DD/MM/YYYY)" (ngModelChange)="calculateWorkDaySum()">
         <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
         <mat-datepicker #picker0></mat-datepicker>
       </mat-form-field>
@@ -18,7 +18,7 @@
             <div fxLayout="row" fxLayoutGap="5px">
               <div fxFlex="50%">
                 <mat-form-field class="full-width">
-                  <input matInput [matDatepicker]="picker1" formControlName="dateFrom" (ngModelChange)="(isLast) ? lastDateEntered() : null" placeholder="Data od (DD/MM/YYYY)">
+                  <input matInput [matDatepicker]="picker1" formControlName="dateFrom" (ngModelChange)="calculateWorkDaySum() || (isLast) ? lastDateEntered() : null" placeholder="Data od (DD/MM/YYYY)">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -26,7 +26,7 @@
               
               <div fxFlex="50%">
                 <mat-form-field class="full-width">
-                  <input matInput [matDatepicker]="picker2" formControlName="dateTo" (ngModelChange)="(isLast) ? lastDateEntered() : null" placeholder="Data do (DD/MM/YYYY)">
+                  <input matInput [matDatepicker]="picker2" formControlName="dateTo" (ngModelChange)="calculateWorkDaySum() || (isLast) ? lastDateEntered() : null" placeholder="Data do (DD/MM/YYYY)">
                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
@@ -56,10 +56,10 @@
       <mat-card-subtitle>Razem:</mat-card-subtitle>
       <mat-card-content fxLayout="row" fxLayoutGap="5px" >
         <mat-form-field fxFlex="50%">
-          <input disabled="disabled" [value]="workDaysForm.valid ? getWorkDaySum() : null" matInput placeholder="Suma dni wprowadzonych">
+          <input disabled="disabled" [value]="workDaysForm.valid ? workDaySum : null" matInput placeholder="Suma dni wprowadzonych">
         </mat-form-field>
         <mat-form-field fxFlex="50%">
-          <input disabled="disabled" [value]="workDaysForm.valid ? getWorkDaySumFromMin() : null" matInput placeholder="Suma dni w zakresie">
+          <input disabled="disabled" [value]="workDaysForm.valid ? fromMinDaySum : null" matInput placeholder="Suma dni w zakresie">
         </mat-form-field>
       </mat-card-content>
     </mat-card>
