@@ -1,16 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatGridListModule, MatMenuModule, MatIconModule, MatToolbarModule, MatButtonModule, MatNativeDateModule, MatSidenavModule, MatListModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatRadioModule, MatCardModule} from '@angular/material';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatGridListModule, MatMenuModule, MatIconModule, MatToolbarModule, MatButtonModule,  MatNativeDateModule, MatSidenavModule, MatListModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatRadioModule, MatCardModule } from '@angular/material';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { WorkdaysFormComponent } from './workdays-form/workdays-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import {GridModule} from '@angular/flex-layout/grid';
+import { GridModule } from '@angular/flex-layout/grid';
 
 export const MY_FORMATS = {
   parse: {
@@ -31,12 +31,12 @@ export const MY_FORMATS = {
   ],
   imports: [
     BrowserModule,
-    MatIconModule,
     MatMenuModule,
     MatToolbarModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatButtonModule,
+    MatIconModule,
     MatSidenavModule,
     MatListModule,
     MatInputModule,

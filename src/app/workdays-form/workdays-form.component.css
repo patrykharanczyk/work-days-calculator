@@ -1,16 +1,33 @@
 .full-width {
   width: 100%;
 }
-
-/* .work-days-form {
-  min-width: 800px;
-} */
-
-
+.first-row{
+  padding-bottom: 30px;
+}
+.work-days-form {
+  padding-top:100px;
+  margin-top:-85px;
+  height:100%;
+}
 @media all and (min-width:1024px) { 
-  .work-days-form  { min-width: 800px; } 
+  .work-days-form  { min-width: 1200px; } 
 }
 .scrollable-list{
-  max-height: 500px;
   overflow-y:auto;
+}
+
+.about{
+  background-color: #5f5f5f;
+}
+.about *{
+  color: white;
+}
+
+html, body {
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+}
+.results *{
+  font-weight: 900
 }
