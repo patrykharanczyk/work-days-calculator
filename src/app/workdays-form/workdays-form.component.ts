@@ -61,15 +61,6 @@ export class WorkdaysFormComponent {
     dates.push(this.createItem());
   }
 
-  getMin = (date1: Date, date2: Date): Date => {
-    // if(date1==null) return date2;
-    // if(date2==null) return date1;
-    if (date1.valueOf < date2.valueOf) {
-      return date1;
-    }
-    return date2;
-  }
-
   getPeriod = (dateFrom: Date, dateTo: Date): number => {
     if (dateFrom && dateTo) {
       var duration = dateTo.valueOf() - dateFrom.valueOf();
@@ -98,9 +89,11 @@ export class WorkdaysFormComponent {
       return 0;
     }
   }
+
   getMinDate = (): Date => {
     return new Date(this.workDaysForm.get('minDate').value - (this.workDaysForm.get('dayRange').value * 24 * 60 * 60 * 1000));
   }
+
   trimToMinDate = (dateFrom: Date, minDate: Date): Date => {
     if (dateFrom.valueOf() < minDate.valueOf()) {
       dateFrom = minDate;
